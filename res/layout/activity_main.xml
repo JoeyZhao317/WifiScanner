@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ToggleButton
+        android:id="@+id/toggleWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/toggle_btn_margin_top"
+        android:layout_marginLeft="@dimen/toggle_btn_margin_left"
+        android:checked="false" />
+
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/list_margin_top"
+        android:layout_marginRight="@dimen/list_margin_right"
+        android:layout_alignLeft="@id/toggleWifi"
+        android:layout_below="@id/toggleWifi" />
+</RelativeLayout>
