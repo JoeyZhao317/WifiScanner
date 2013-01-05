@@ -376,6 +376,8 @@ public class WifiScannerActivity extends PreferenceActivity implements DialogInt
 //            Credentials.getInstance().unlock(this);
 //            return true;
 //        }
+
+        // TODO fix to use hidden api or find other solution to save encrypt keys
         return false;
     }
 
