@@ -5,12 +5,6 @@
 
     <com.cm.wifiscanner.wifi.ProgressCategory
             android:key="access_points"
-            android:title="@string/wifi_access_points"
-            android:persistent="false" />
-
-    <Preference
-            android:key="add_network"
-            android:title="@string/wifi_add_network"
             android:persistent="false" />
 
 </PreferenceScreen>

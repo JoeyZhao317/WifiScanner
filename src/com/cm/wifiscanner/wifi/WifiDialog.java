@@ -42,11 +42,11 @@ public class WifiDialog extends AlertDialog implements View.OnClickListener,
     private CheckBox mHubShowPassword;
 
     private Spinner mEapMethod;
-    private Spinner mEapCaCert;
-    private Spinner mPhase2;
-    private Spinner mEapUserCert;
-    private TextView mEapIdentity;
-    private TextView mEapAnonymous;
+//    private Spinner mEapCaCert;
+//    private Spinner mPhase2;
+//    private Spinner mEapUserCert;
+//    private TextView mEapIdentity;
+//    private TextView mEapAnonymous;
 
     public static boolean requireKeyStore(WifiConfiguration config) {
 //        String values[] = {config.ca_cert.value(), config.client_cert.value(),
@@ -76,8 +76,7 @@ public class WifiDialog extends AlertDialog implements View.OnClickListener,
         WifiConfiguration config = new WifiConfiguration();
 
         if (mAccessPoint == null) {
-            config.SSID = AccessPoint.convertToQuotedString(
-                    mSsid.getText().toString());
+            config.SSID = AccessPoint.convertToQuotedString(mSsid.getText().toString());
             // If the user adds a network manually, assume that it is hidden.
             config.hiddenSSID = true;
         } else if (mAccessPoint.networkId == -1) {
@@ -241,6 +240,9 @@ public class WifiDialog extends AlertDialog implements View.OnClickListener,
                 mHubUser.setVisibility(visibility);
                 mHubPassword.setVisibility(visibility);
                 mHubShowPassword.setVisibility(visibility);
+
+                mView.findViewById(R.id.hub_name_label).setVisibility(visibility);
+                mView.findViewById(R.id.hub_pwd_label).setVisibility(visibility);
 
                 if (visibility == View.VISIBLE) {
                     mHubUser.requestFocus();

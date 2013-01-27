@@ -47,13 +47,15 @@
                 android:entries="@array/wifi_security" />
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/hub_fields"
+        <LinearLayout
+            android:id="@+id/hub_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
 
-            <CheckBox android:id="@+id/hub_login_anonymous"
+            <CheckBox
+                android:id="@+id/hub_login_anonymous"
                 style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,13 +63,16 @@
                 android:text="@string/hub_login_anonymous" />
 
             <TextView
+                android:id="@+id/hub_name_label"
+                android:text="@string/wifi_user_name"
                 style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dip"
-                android:text="@string/wifi_user_name" />
+                android:visibility="gone" />
 
-            <EditText android:id="@+id/hub_user"
+            <EditText
+                android:id="@+id/hub_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -75,20 +80,24 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/hub_pwd_label"
                 style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dip"
-                android:text="@string/wifi_password" />
+                android:text="@string/wifi_password"
+                android:visibility="gone" />
 
-            <EditText android:id="@+id/hub_password"
+            <EditText
+                android:id="@+id/hub_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:visibility="gone" />
 
-            <CheckBox android:id="@+id/hub_show_password"
+            <CheckBox
+                android:id="@+id/hub_show_password"
                 style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

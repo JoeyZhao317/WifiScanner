@@ -1,4 +1,4 @@
-package com.cm.wifiscanner.widget;
+package com.cm.wifiscanner.legacy;
 
 import com.cm.wifiscanner.R;
 
