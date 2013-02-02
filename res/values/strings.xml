@@ -97,10 +97,11 @@
     <!-- Menu option to modify a Wi-Fi network configuration -->
     <string name="wifi_menu_modify">Modify network</string>
     <!-- Checkbox title for option to filter out secured access points -->
-    <string name="wifi_filter_only_open">Filter out</string>
+    <string name="wifi_filter">WiFi Filter</string>
     <!-- Checkbox summary for option to filter out secured access points -->
-    <string name="wifi_filter_only_open_summary">Only visible for open networks</string>
-
+    <string name="wifi_filter_only_open_summary">Only display open networks</string>
+    <string name="wifi_filter_all_summary">Display all networks</string>
+    
     <string name="hub_login_success">Login Successfully</string>
     <string name="hub_login_failure">Login Failure</string>
 

@@ -68,7 +68,7 @@ public class AccessPoint extends Preference {
         return (config.wepKeys[0] != null) ? SECURITY_WEP : SECURITY_NONE;
     }
 
-    private static int getSecurity(ScanResult result) {
+    static int getSecurity(ScanResult result) {
         if (result.capabilities.contains("WEP")) {
             return SECURITY_WEP;
         } else if (result.capabilities.contains("PSK")) {

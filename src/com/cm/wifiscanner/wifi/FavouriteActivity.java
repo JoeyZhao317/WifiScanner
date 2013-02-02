@@ -1,16 +1,14 @@
 package com.cm.wifiscanner.wifi;
 
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Window;
-
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.Window;
 
-public class FavouriteActivity extends SherlockListActivity {
+public class FavouriteActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
-
 }

@@ -11,9 +11,9 @@
 
     <CheckBoxPreference 
         android:key="filter_open_wifi"
-        android:title="@string/wifi_filter_only_open"
+        android:title="@string/wifi_filter"
         android:summary="@string/wifi_filter_only_open_summary"
-        android:persistent="false"/>
+        android:persistent="true"/>
 
     <com.cm.wifiscanner.wifi.ProgressCategory
         android:key="access_points"

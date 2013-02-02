@@ -134,6 +134,7 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
 
         mAddNetwork = findPreference("add_network");
         mWifiFilter = (CheckBoxPreference) findPreference("filter_open_wifi");
+        updateFilterState();
 
         registerForContextMenu(getListView());
     }
@@ -195,12 +196,18 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
             mSelectedAccessPoint = null;
             showDialog(null, false);
         } else if (preference == mWifiFilter) {
-            mFilterNetwork = mWifiFilter.isChecked();
+            updateFilterState();
             updateAccessPoints();
         } else {
             return super.onPreferenceTreeClick(screen, preference);
         }
         return true;
+    }
+
+    private void updateFilterState() {
+        mFilterNetwork = mWifiFilter.isChecked();
+        mWifiFilter.setSummary(mFilterNetwork ?
+                R.string.wifi_filter_only_open_summary : R.string.wifi_filter_all_summary);
     }
 
     private void handleEvent(Intent intent) {
@@ -260,14 +267,9 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
         List<AccessPoint> accessPoints = new ArrayList<AccessPoint>();
         List<WifiConfiguration> configs = mWifiManager.getConfiguredNetworks();
 
-        if (configs != null) {
+        if (!mFilterNetwork && configs != null) {
             mLastPriority = 0;
             for (WifiConfiguration config : configs) {
-//                if (config.allowedKeyManagement.get(index) == WifiConfiguration.KeyMgmt.NONE) {
-//
-//                }
-
-
                 if (config.priority > mLastPriority) {
                     mLastPriority = config.priority;
                 }
@@ -294,12 +296,19 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
                     continue;
                 }
 
+                if (mFilterNetwork
+                        && (AccessPoint.getSecurity(result) != AccessPoint.SECURITY_NONE
+                        || result.frequency == 0)) {
+                    continue;
+                }
+
                 boolean found = false;
                 for (AccessPoint accessPoint : accessPoints) {
                     if (accessPoint.update(result)) {
                         found = true;
                     }
                 }
+
                 if (!found) {
                     accessPoints.add(new AccessPoint(this, result));
                 }
