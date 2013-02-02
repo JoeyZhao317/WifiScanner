@@ -1,7 +1,5 @@
 package com.cm.wifiscanner.wifi;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.Window;
 import com.cm.wifiscanner.R;
 import com.cm.wifiscanner.hub.LoginUtils;
 import com.cm.wifiscanner.util.Credentials;
@@ -27,21 +25,18 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
+import android.view.Window;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiListActivity extends SherlockPreferenceActivity implements DialogInterface.OnClickListener {
+public class WifiListActivity extends PreferenceActivity implements DialogInterface.OnClickListener {
 
     private static final String TAG = "WifiScannerActivity";
 
@@ -68,6 +63,8 @@ public class WifiListActivity extends SherlockPreferenceActivity implements Dial
     private int mKeyStoreNetworkId = INVALID_NETWORK_ID;
 
     private WifiDialog mDialog;
+    private WifiEnabler mWifiEnabler;
+    private Preference mAddNetwork;
 
     private Scanner mScanner;
 
@@ -117,17 +114,24 @@ public class WifiListActivity extends SherlockPreferenceActivity implements Dial
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(ThemeManager.getTheme());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         super.onCreate(savedInstanceState);
 
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
-        addPreferencesFromResource(R.xml.wifi_access_points);
+        if (getIntent().getBooleanExtra("only_access_points", false)) {
+            addPreferencesFromResource(R.xml.wifi_access_points);
+        } else {
+            addPreferencesFromResource(R.xml.wifi_settings);
+            mWifiEnabler = new WifiEnabler(this,
+            (CheckBoxPreference) findPreference("enable_wifi"));
+        }
 
         mAccessPoints = (ProgressCategory) findPreference("access_points");
         mAccessPoints.setOrderingAsAdded(false);
+
+        mAddNetwork = findPreference("add_network");
 
         registerForContextMenu(getListView());
     }
@@ -141,6 +145,11 @@ public class WifiListActivity extends SherlockPreferenceActivity implements Dial
                 && KeyStore.getInstance().test() == KeyStore.NO_ERROR) {
             connect(mKeyStoreNetworkId);
         }
+
+        if (mWifiEnabler != null) {
+            mWifiEnabler.resume();
+        }
+
         mKeyStoreNetworkId = INVALID_NETWORK_ID;
     }
 
@@ -150,6 +159,10 @@ public class WifiListActivity extends SherlockPreferenceActivity implements Dial
 
         unregisterReceiver(mReceiver);
         mScanner.pause();
+
+        if (mWifiEnabler != null) {
+            mWifiEnabler.pause();
+        }
 
         if (mDialog != null) {
             mDialog.dismiss();
@@ -176,6 +189,9 @@ public class WifiListActivity extends SherlockPreferenceActivity implements Dial
         if (preference instanceof AccessPoint) {
             mSelectedAccessPoint = (AccessPoint) preference;
             showDialog(mSelectedAccessPoint, false);
+        } else if (preference == mAddNetwork) {
+            mSelectedAccessPoint = null;
+            showDialog(null, false);
         } else {
             return super.onPreferenceTreeClick(screen, preference);
         }
