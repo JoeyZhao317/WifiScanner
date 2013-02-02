@@ -5,7 +5,6 @@ import com.cm.wifiscanner.hub.LoginUtils;
 import com.cm.wifiscanner.util.Credentials;
 import com.cm.wifiscanner.util.KeyStore;
 import com.cm.wifiscanner.util.Logger;
-import com.cm.wifiscanner.util.ThemeManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -60,11 +59,13 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
     private int mLastPriority;
 
     private boolean mResetNetworks = false;
+    private boolean mFilterNetwork = false;
     private int mKeyStoreNetworkId = INVALID_NETWORK_ID;
 
     private WifiDialog mDialog;
     private WifiEnabler mWifiEnabler;
     private Preference mAddNetwork;
+    private CheckBoxPreference mWifiFilter;
 
     private Scanner mScanner;
 
@@ -132,6 +133,7 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
         mAccessPoints.setOrderingAsAdded(false);
 
         mAddNetwork = findPreference("add_network");
+        mWifiFilter = (CheckBoxPreference) findPreference("filter_open_wifi");
 
         registerForContextMenu(getListView());
     }
@@ -192,6 +194,9 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
         } else if (preference == mAddNetwork) {
             mSelectedAccessPoint = null;
             showDialog(null, false);
+        } else if (preference == mWifiFilter) {
+            mFilterNetwork = mWifiFilter.isChecked();
+            updateAccessPoints();
         } else {
             return super.onPreferenceTreeClick(screen, preference);
         }
@@ -258,6 +263,11 @@ public class WifiListActivity extends PreferenceActivity implements DialogInterf
         if (configs != null) {
             mLastPriority = 0;
             for (WifiConfiguration config : configs) {
+//                if (config.allowedKeyManagement.get(index) == WifiConfiguration.KeyMgmt.NONE) {
+//
+//                }
+
+
                 if (config.priority > mLastPriority) {
                     mLastPriority = config.priority;
                 }

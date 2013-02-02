@@ -9,6 +9,12 @@
         android:summary="@string/wifi_quick_toggle_summary"
         android:persistent="false"/>
 
+    <CheckBoxPreference 
+        android:key="filter_open_wifi"
+        android:title="@string/wifi_filter_only_open"
+        android:summary="@string/wifi_filter_only_open_summary"
+        android:persistent="false"/>
+
     <com.cm.wifiscanner.wifi.ProgressCategory
         android:key="access_points"
         android:dependency="enable_wifi"
