@@ -195,18 +195,31 @@ public class AccessPoint extends Preference {
             signal.setImageDrawable(null);
         } else {
             final int level = getLevel();
+            final boolean lock = security == SECURITY_NONE;
             switch (level) {
                 case 0:
-                    signal.setImageResource(R.drawable.stat_sys_wifi_signal_1_fully);
+                    if (lock)
+                        signal.setImageResource(R.drawable.ic_wifi_signal_1);
+                    else
+                        signal.setImageResource(R.drawable.ic_wifi_lock_signal_1);
                     break;
                 case 1:
-                    signal.setImageResource(R.drawable.stat_sys_wifi_signal_2_fully);
+                    if (lock)
+                        signal.setImageResource(R.drawable.ic_wifi_signal_2);
+                    else
+                        signal.setImageResource(R.drawable.ic_wifi_lock_signal_2);
                     break;
                 case 2:
-                    signal.setImageResource(R.drawable.stat_sys_wifi_signal_3_fully);
+                    if (lock)
+                        signal.setImageResource(R.drawable.ic_wifi_signal_3);
+                    else
+                        signal.setImageResource(R.drawable.ic_wifi_lock_signal_3);
                     break;
                 case 3:
-                    signal.setImageResource(R.drawable.stat_sys_wifi_signal_4_fully);
+                    if (lock)
+                        signal.setImageResource(R.drawable.ic_wifi_signal_4);
+                    else
+                        signal.setImageResource(R.drawable.ic_wifi_lock_signal_4);
                     break;
                 default:
                     break;

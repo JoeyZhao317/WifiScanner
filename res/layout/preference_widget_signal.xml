@@ -3,5 +3,5 @@
       android:id="@+id/signal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/stat_sys_wifi_signal_1_fully"
+      android:src="@drawable/ic_wifi_signal_1"
       android:contentDescription="@null" />
