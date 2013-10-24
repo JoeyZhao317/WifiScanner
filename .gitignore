@@ -2,6 +2,7 @@
 *.apk
 *.ap_
 test
+test
 # files for the dex VM
 *.dex
 
